@@ -1,0 +1,138 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+ 
+</div>
+
+
+
+<div class="container-fluid mt--7">
+
+<div class="row">
+  <div class="col">
+    <div class="card shadow">
+      <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">S.no</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Address</th>
+              <th scope="col">Course Title</th>
+              <th scope="col">ZIP Code</th>
+              <th scope="col">Course Price</th>
+              <th scope="col">Created At</th>
+            
+            </tr>
+            
+          </thead>
+          <tbody *ngIf="alltransation.length > 0; else noDataMessage">
+            <tr *ngFor="let transaction of alltransation; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+             
+              <td>{{ transaction.userName }}</td>
+              <td>{{ transaction.email }}</td>
+             
+              <td>{{ transaction.address }}</td>
+              <td>{{ transaction.courseTitle }}</td>
+              <td>{{ transaction.Zip }}</td>
+              <td>${{ transaction.amount }}</td>
+              <td>{{ transaction.createdAt | date:'dd-MMM-yyyy'}}</td>
+               <td>
+                <!-- Edit Button with Argon Edit Icon -->
+                <button type="button" class="btn" (click)="openModal(transaction)">
+                  View Details 
+                </button>
+                
+              
+                <!-- [routerLink]="['/editcourse', course.id]" -->
+              </td>
+              
+              
+            </tr>
+          </tbody>
+          <ng-template #noDataMessage>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <p>
+                No data found.
+              </p>
+            </div>
+          </ng-template>
+          
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- HTML code -->
+<div *ngIf="selectedTransaction" class="modal fade" [id]="'exampleModalLong' + selectedTransaction.id.toString()" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title" id="exampleModalLongTitle" >Order Details</h2>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      
+      <div class="user-details-container">
+        <p style="color: black; font-weight: 500;">userName: <span style="color: black; font-weight: 200;">{{ selectedTransaction.userName }}</span></p>
+
+    </div>
+    <div class="user-details-container">
+      <p style="color: black; font-weight: 500;">Email: <span style="color: black; font-weight: 200;">{{ selectedTransaction.email }}</span></p>
+
+  </div>
+  <div class="user-details-container">
+    <p style="color: black; font-weight: 500;">Country: <span style="color: black; font-weight: 200;">{{ selectedTransaction.country }}</span></p>
+
+</div>
+<div class="user-details-container">
+  <p style="color: black; font-weight: 500;">City: <span style="color: black; font-weight: 200;">{{ selectedTransaction.city }}</span></p>
+
+</div>
+<div class="user-details-container">
+<p style="color: black; font-weight: 500;">State: <span style="color: black; font-weight: 200;">{{ selectedTransaction.state }}</span></p>
+
+</div>
+
+<div class="user-details-container">
+<p style="color: black; font-weight: 500;">Zip: <span style="color: black; font-weight: 200;">{{ selectedTransaction.Zip }}</span></p>
+
+</div>  
+<div class="user-details-container">
+<p style="color: black; font-weight: 500;">CourseTitle: <span style="color: black; font-weight: 200;">{{ selectedTransaction.courseTitle }}</span></p>
+
+</div>  
+<div class="user-details-container">
+<p style="color: black; font-weight: 500;">Amount: <span style="color: black; font-weight: 200;">{{ selectedTransaction.amount }}</span></p>
+
+</div>  
+<div class="user-details-container">
+<p style="color: black; font-weight: 500;">Currency: <span style="color: black; font-weight: 200;">{{ selectedTransaction.currency }}</span></p>
+
+</div> 
+<div class="user-details-container">
+<p style="color: black; font-weight: 500;">Date: <span style="color: black; font-weight: 200;">{{ selectedTransaction.createdAt | date:'dd-MMM-yyyy' }} </span></p>
+
+</div> 
+     
+
+     
+      <div class="userdetails">
+       
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">OK</button>
+     
+
+    </div>
+  </div>
+</div>
+</div>

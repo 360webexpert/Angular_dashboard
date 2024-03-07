@@ -1,0 +1,36 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+    <span class="mask bg-gradient-danger opacity-8"></span>
+    <!-- Header container -->
+   
+  </div>
+
+
+
+
+ 
+        <div class="site-section">
+            <div class="container-fluid" style="background-color: #f0f0f0; padding: 20px; height: 300px;">
+              <div class="container" *ngIf="assigncourse && assigncourse.length > 0">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h2 style="color: black; font-size: 36px; width: 100%; text-align: center; padding-bottom: 20px;">Assigned Courses</h2>
+                  </div>
+                </div>
+                <div class="row" *ngFor="let course of assigncourse">
+                  <div class="col-md-4">
+                    <div class="card mb-4" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+                      <img class="card-img-top" [src]="course.courseImage" alt="Card image cap" style="width: 100%; height: auto; opacity: 0.6;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ course.courseTitle }}</h5>
+                        <p class="card-text">{{ course.courseDescription.length > 100 ? (course.courseDescription | slice:0:100) + '...' : course.courseDescription }}</p>
+                        <p style="font-weight: 600;">${{ course.coursePrice }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+

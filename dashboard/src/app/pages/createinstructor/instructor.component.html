@@ -1,0 +1,78 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+    <span class="mask bg-gradient-danger opacity-8"></span>
+    <!-- Header container -->
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0"></div>
+      <div class="col-xl-12  order-xl-1">
+        <div class="card bg-secondary shadow">
+          <div class="card-body">
+            <form [formGroup]="instructorForm" (ngSubmit)="onSubmit()">
+                <div class="pl-lg-4">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-title">Instructor Name</label>
+                                <input type="text" id="input-title" class="form-control form-control-alternative" placeholder="Course Title" formControlName="name">
+                                <div *ngIf="instructorForm.get('name').invalid && (instructorForm.get('name').dirty || instructorForm.get('name').touched)" class="text-danger">Please enter a title.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-price">Email</label>
+                                <input type="text" id="input-price" class="form-control form-control-alternative" placeholder="email" formControlName="email">
+                                <div *ngIf="instructorForm.get('email').invalid && (instructorForm.get('email').dirty || instructorForm.get('email').touched)" class="text-danger">Please enter email.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input rows="4" class="form-control form-control-alternative" placeholder="address" formControlName="address">
+                                <div *ngIf="instructorForm.get('address').invalid && (instructorForm.get('address').dirty || instructorForm.get('address').touched)" class="text-danger">Please enter address.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input rows="4" class="form-control form-control-alternative" placeholder="country" formControlName="country">
+                                <div *ngIf="instructorForm.get('country').invalid && (instructorForm.get('country').dirty || instructorForm.get('country').touched)" class="text-danger">Please enter country.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>State</label>
+                                <input rows="4" class="form-control form-control-alternative" placeholder="state" formControlName="state">
+                                <div *ngIf="instructorForm.get('state').invalid && (instructorForm.get('state').dirty || instructorForm.get('state').touched)" class="text-danger">Please enter state.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input rows="4" class="form-control form-control-alternative" placeholder="city" formControlName="city">
+                                <div *ngIf="instructorForm.get('city').invalid && (instructorForm.get('city').dirty || instructorForm.get('city').touched)" class="text-danger">Please enter state.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Create Instructor</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

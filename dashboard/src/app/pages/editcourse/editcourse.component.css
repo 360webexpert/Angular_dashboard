@@ -1,0 +1,27 @@
+.image-input-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .upload-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-icon i {
+    color: white;
+  }
+  
+  .upload-icon:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  

@@ -1,0 +1,66 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+    <span class="mask bg-gradient-danger opacity-8"></span>
+    <!-- Header container -->
+   
+  </div>
+
+
+
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">S.no</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Price</th>
+                <th scope="col">Course Description</th>
+                <th scope="col">Course Images</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="courses.length > 0; else noDataMessage">
+              <tr *ngFor="let course of courses; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ course.courseTitle }}</td>
+                <td>${{ course.coursePrice }}</td>
+                <td>{{ course.courseDescription }}</td>
+                <td><img class="card-img-top" [src]="course.courseImage" alt="Course Image" style="width: 40%; padding:10px;">
+                </td>
+
+                <td>
+                  <!-- Edit Button with Argon Edit Icon -->
+                  <button [routerLink]="['/editcourse', course.id]" class="btn btn-icon btn-primary btn-sm" type="button">
+                    <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
+                  </button>
+                
+                  <!-- Delete Button with Argon Delete Icon -->
+                  <button (click)="deleteCourse(course.id)" class="btn btn-icon btn-danger btn-sm" type="button">
+                    <span class="btn-inner--icon"><i class="ni ni-basket"></i></span>
+                  </button>
+                </td>
+                
+              </tr>
+            </tbody>
+            <ng-template #noDataMessage>
+              <div style="display: flex; justify-content: center; align-items: center;">
+                <p>
+                  No data found.
+                </p>
+              </div>
+             
+            </ng-template>
+          </table>
+        </div>
+        <!-- Card Footer and Pagination -->
+        <!-- ... -->
+      </div>
+    </div>
+  </div>
+</div>
+
+

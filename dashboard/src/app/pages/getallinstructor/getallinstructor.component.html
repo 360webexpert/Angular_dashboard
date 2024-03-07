@@ -1,0 +1,76 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+    <span class="mask bg-gradient-danger opacity-8"></span>
+    <!-- Header container -->
+   
+  </div>
+
+
+
+<div class="container-fluid mt--7">
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Instructor ID</th>
+                <th scope="col">Instructor Name</th>
+                <th scope="col"> Email</th>
+                <th scope="col"> Country</th>
+                <th scope="col"> State</th>
+                <th scope="col">City</th>
+                <th scope="col">Zip</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="instructors.length > 0; else noDataMessage">
+                <tr *ngFor="let instructor of instructors; let i = index">
+                  <th>#{{ instructor.id }}</th>
+                  <td>{{ instructor.name }}</td>
+                  <td>{{ instructor.email }}</td>
+                  <td>{{ instructor.country }}</td>
+                  <td>{{ instructor.state }}</td>
+                  <td>{{ instructor.city }}</td>
+                  <td>{{ instructor.zip }}</td>
+                  <!-- <td>{{ instructor.password }}</td> -->
+                </tr>
+              </tbody>
+              
+              
+              
+              
+            <ng-template #noDataMessage>
+              <div style="display: flex; justify-content: center; align-items: center;">
+                <p>
+                  No data found.
+                </p>
+              </div>
+             
+            </ng-template>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+ <!-- <td>
+                  
+                  <button [routerLink]="['/edituser', users.id]" class="btn btn-icon btn-primary btn-sm" type="button">
+                    <i class="fa-solid fa-user-pen"></i>
+                  </button>
+                
+                  
+                  <button (click)="confirmDelete(users.id)" class="btn btn-icon btn-danger btn-sm" type="button">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                  <button [routerLink]="['/userdetails', users.id]" class="btn btn-icon  btn-sm" type="button">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </td> -->

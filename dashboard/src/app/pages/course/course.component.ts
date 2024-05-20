@@ -45,45 +45,36 @@ export class CourseComponent implements OnInit {
 
   onFileChange(event: any) {
     const files = event.target.files;
-//  const apiUrl = 'https://360coder.com/node/file'
-
-   const apiUrl = 'http://localhost:8080/api/file/'
+    const apiUrl = 'http://localhost:8080/api/file/'; // API URL
     if (files && files.length > 0) {
-      this.image = files[0];
-
-      if (this.image) {
-        this.apiService.uploadFile(this.image).subscribe(
-          (response) => {
-          
-            console.log('File uploaded successfully:', response);
-            this.uploadSuccessMessage = response.message;
-            // this.uploadedFilePath = response.fileUrl
-            this.uploadErrorMessage = null;
-            this.uploadedFilePath = apiUrl+response.fileUrl;
-
-            // Call the API `to get the file URL
-          // this.apiService.getFileUrl(response.fileUrl).subscribe(
-          //   (fileResponse) => {
-          //     console.log('File URL retrieved successfully:', fileResponse);
-          //     this.uploadedFilePath = apiUrl+fileResponse.filePath;
-          //   },
-          //   (error) => {
-          //     console.error('Failed to retrieve file URL:', error);
-          //     this.uploadErrorMessage = error.message;
-          //   }
-          // );
-          },
-          (error) => {
-          
-            console.error('Failed to upload file:', error);
-            this.uploadErrorMessage = error.message;
-            this.uploadSuccessMessage = null;
-          }
-        );
+      const file = files[0];
+      // Check if the file is of an allowed type
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg') {
+        // Display an error message if the file type is incorrect
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid File Type',
+          text: 'Please upload an image in JPG or PNG format only.',
+          confirmButtonText: 'OK'
+        });
+        return; // Exit the function to prevent further execution
       }
+      // If the file is valid, proceed with the file upload
+      this.apiService.uploadFile(file).subscribe(
+        (response) => {
+          console.log('File uploaded successfully:', response);
+          this.uploadSuccessMessage = response.message;
+          this.uploadErrorMessage = null;
+          this.uploadedFilePath = apiUrl + response.fileUrl; // Concatenate API URL with file path
+        },
+        (error) => {
+          console.error('Failed to upload file:', error);
+          this.uploadErrorMessage = error.message;
+          this.uploadSuccessMessage = null;
+        }
+      );
     }
-  }
-  
+  } 
  
     
  

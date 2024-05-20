@@ -9,7 +9,7 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">All Users</h5>
-                  <span class="h2 font-weight-bold mb-0">2</span>
+                  <span class="h2 font-weight-bold mb-0">{{users.length}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -18,7 +18,7 @@
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{userPercentageChange}}%</span>
                 <span class="text-nowrap">Since last month</span>
               </p>
             </div>
@@ -30,7 +30,7 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">All Courses</h5>
-                  <span class="h2 font-weight-bold mb-0">15</span>
+                  <span class="h2 font-weight-bold mb-0">{{courses.length}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -39,7 +39,7 @@
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> {{coursePercentageChange}}</span>
                 <span class="text-nowrap">Since last week</span>
               </p>
             </div>
@@ -51,7 +51,7 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Total Amount</h5>
-                  <span class="h2 font-weight-bold mb-0">924</span>
+                  <span class="h2 font-weight-bold mb-0">{{totalAmount}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -71,8 +71,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">All Purchages</h5>
-                  <span class="h2 font-weight-bold mb-0">49,65%</span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">All Purchases</h5>
+                  <span class="h2 font-weight-bold mb-0">{{totalPurchases}}%</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -81,7 +81,7 @@
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> {{percentagechange}}</span>
                 <span class="text-nowrap">Since last month</span>
               </p>
             </div>
@@ -98,10 +98,10 @@
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
             <div class="col">
-              <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
+              <h6 class="text-uppercase text-light ls-1 mb-1">Users</h6>
               <h2 class="text-white mb-0">Sales value</h2>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <ul class="nav nav-pills justify-content-end">
                 <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[0];updateOptions()">
                   <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked===true}" data-toggle="tab" (click)="clicked=true;clicked1=false">
@@ -116,7 +116,7 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="card-body">
@@ -134,7 +134,7 @@
           <div class="row align-items-center">
             <div class="col">
               <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-              <h2 class="mb-0">Total orders</h2>
+              <h2 class="mb-0">Total courses</h2>
             </div>
           </div>
         </div>
@@ -156,94 +156,45 @@
               <h3 class="mb-0">Recent Users</h3>
             </div>
             <div class="col text-right">
-              <a href="#!" class="btn btn-sm btn-primary">See all</a>
+              <a routerLink="/allusers" class="btn btn-sm btn-primary">See all</a>
             </div>
           </div>
         </div>
         <div class="table-responsive">
           <!-- Projects table -->
-          <table class="table align-items-center table-flush">
+          <table class="table align-items-center table-flush" >
             <thead class="thead-light">
               <tr>
-                <th scope="col">Page name</th>
-                <th scope="col">Visitors</th>
-                <th scope="col">Unique users</th>
-                <th scope="col">Bounce rate</th>
+                <th scope="col"> Name</th>
+                <th scope="col">Country</th>
+                <th scope="col">Current programme</th>
+                <th scope="col">Phone number</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody *ngIf="users.length > 0; else noDataMessage">
+              <tr *ngFor="let user of users.slice(0, 5)">
                 <th scope="row">
-                  /argon/
+               {{user.firstName}}
                 </th>
                 <td>
-                  4,569
+                  {{user.country}}
                 </td>
                 <td>
-                  340
+                  {{user.currentProgram}}
                 </td>
                 <td>
-                  <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
+                {{user.phoneNumber}}
                 </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  /argon/index.html
-                </th>
-                <td>
-                  3,985
-                </td>
-                <td>
-                  319
-                </td>
-                <td>
-                  <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  /argon/charts.html
-                </th>
-                <td>
-                  3,513
-                </td>
-                <td>
-                  294
-                </td>
-                <td>
-                  <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  /argon/tables.html
-                </th>
-                <td>
-                  2,050
-                </td>
-                <td>
-                  147
-                </td>
-                <td>
-                  <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  /argon/profile.html
-                </th>
-                <td>
-                  1,795
-                </td>
-                <td>
-                  190
-                </td>
-                <td>
-                  <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                </td>
-              </tr>
+            
             </tbody>
           </table>
+          <ng-template #noDataMessage>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <p>
+                No data found.
+              </p>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -252,10 +203,10 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">Recent orders</h3>
+              <h3 class="mb-0">Recent Courses</h3>
             </div>
             <div class="col text-right">
-              <a href="#!" class="btn btn-sm btn-primary">See all</a>
+              <a routerLink="/allcourse" class="btn btn-sm btn-primary">See all</a>
             </div>
           </div>
         </div>
@@ -263,103 +214,26 @@
           <!-- Projects table -->
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
-              <tr>
-                <th scope="col">Referral</th>
-                <th scope="col">Visitors</th>
-                <th scope="col"></th>
+              <tr >
+                <th scope="col">Name</th>
+                <th scope="col">Fee</th>
+                <th scope="col">Published date</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let course of courses.slice(0, 5)">
                 <th scope="row">
-                  Facebook
+                {{course.courseTitle}}
                 </th>
                 <td>
-                  1,480
+                ${{course.coursePrice}}
                 </td>
                 <td>
-                  <div class="d-flex align-items-center">
-                    <span class="mr-2">60%</span>
-                    <div>
-                      <div class="progress">
-                        <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                      </div>
-                    </div>
-                  </div>
+                  {{ course.createdAt | date:'dd/MM/yyyy' }}
+
                 </td>
               </tr>
-              <tr>
-                <th scope="row">
-                  Facebook
-                </th>
-                <td>
-                  5,480
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <span class="mr-2">70%</span>
-                    <div>
-                      <div class="progress">
-                        <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  Google
-                </th>
-                <td>
-                  4,807
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <span class="mr-2">80%</span>
-                    <div>
-                      <div class="progress">
-                        <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  Instagram
-                </th>
-                <td>
-                  3,678
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <span class="mr-2">75%</span>
-                    <div>
-                      <div class="progress">
-                        <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  twitter
-                </th>
-                <td>
-                  2,645
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <span class="mr-2">30%</span>
-                    <div>
-                      <div class="progress">
-                        <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+           
             </tbody>
           </table>
         </div>

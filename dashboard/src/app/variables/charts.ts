@@ -307,7 +307,7 @@ export function chartExample1(dataSets) {
     labels: ['Jan','Feb','Mar','Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [{
       label: 'Performance',
-      data: dataSets
+      // data: [25, 20, 30, 22, 17, 29],
     }]
   }
 }

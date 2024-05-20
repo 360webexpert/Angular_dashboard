@@ -18,9 +18,12 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" for="input-image">Course Image</label>
-                      <img *ngIf="courseimage" [src]="courseimage" alt="Course Image" style="width: 40%; padding:10px;">
-                      <input type="file" id="input-image" class="form-control form-control-alternative" placeholder="Image URL" (change)="onFileChange($event)" formControlName="courseImage">
-                      <div *ngIf="courseForm.get('courseImage').invalid && (courseForm.get('courseImage').dirty || courseForm.get('courseImage').touched)" class="text-danger">Please select an image.</div>
+                      <img *ngIf="courseimage" [src]="courseimage" alt="Course Image" style="width: 40%; padding: 10px;">
+                      <input type="file" id="input-image" class="form-control form-control-alternative"
+                      accept=".png, .jpg, .jpeg" (change)="onFileChange($event)">
+                      <div
+                        *ngIf="courseForm.get('courseImage').invalid && (courseForm.get('courseImage').dirty || courseForm.get('courseImage').touched)"
+                        class="text-danger">Please select an image.</div>
                     </div>
                   </div>
                 </div>

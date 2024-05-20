@@ -6,7 +6,7 @@ import {
   chartOptions,
   parseOptions,
   chartExample1,
-  chartExample2
+  chartExample2,
 } from "../../variables/charts";
 import { ApiService } from 'src/app/_services/api.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
   currentMonthUserCount: any;
   userPercentageChange: any;
   ordersChart: any;
+  barChartData:any;
 
 
   constructor(private apiService: ApiService) { dayjs.extend(utc); }
@@ -54,6 +55,7 @@ export class DashboardComponent implements OnInit {
 
         // Update the courseImage URLs directly
         this.courses = allCourses;
+        console.log( this.courses,'hyyyyy')
         // Get the current date
         const currentDate = new Date();
 
@@ -73,6 +75,38 @@ export class DashboardComponent implements OnInit {
         const coursepercentageChange = ((this.currentWeekCourseCount - this.previousWeekCourseCount) / this.previousWeekCourseCount) * 100;
         this.coursePercentageChange = coursepercentageChange.toFixed(2) + '%'
         console.log('this.coursePercentageChange', this.coursePercentageChange)
+
+        this.barChartData = this.getChartData(allCourses,6);
+        var chartOrders = document.getElementById('chart-orders');
+
+        parseOptions(Chart, chartOptions());
+    
+         var chartOrders = document.getElementById('chart-orders');
+    
+         var ordersChart = new Chart(chartOrders, {
+           type: 'bar',
+           options: chartExample2.options,
+           data: {
+            labels: this.barChartData.labels,
+            datasets: [
+              {
+                label: "Sales",
+                data: this.barChartData.salesData,
+                maxBarThickness: 10
+              }
+            ]
+          }
+         });
+
+
+
+
+
+        //  line chart
+    
+
+
+
       },
       (error) => {
         console.error("Error fetching courses:", error);
@@ -110,6 +144,29 @@ export class DashboardComponent implements OnInit {
           this.userPercentageChange = userpercentageChange.toFixed(2) + '%'
           console.log(' this.userPercentageChange', this.userPercentageChange)
         }
+
+        var lineChartData = this.getChartData(this.users,12);
+        var chartSales = document.getElementById('chart-sales');
+
+
+ 
+
+        this.salesChart = new Chart(chartSales, {
+          type: 'line',
+          options: chartExample1(this.datasets).options,
+          data: {
+            labels: lineChartData.labels,
+            datasets: [
+              {
+                label: "Performance",
+                data: lineChartData.salesData,
+                maxBarThickness: 10
+              }
+            ]
+          }
+        });
+
+
       },
       (error) => {
         console.error("Error fetching courses:", error);
@@ -156,7 +213,7 @@ export class DashboardComponent implements OnInit {
       console.log('Percentage change since yesterday: ' + percentageChange.toFixed(2) + '%');
       this.percentagechange = percentageChange.toFixed(2) + '%'
       console.log('this.percentagechange', this.percentagechange)
-
+ 
 
       // Calculate total purchase amount
       this.totalPurchases = allTransactions.reduce((total, transaction) => total + parseFloat(transaction.amount), 0);
@@ -197,7 +254,7 @@ export class DashboardComponent implements OnInit {
 
       }
       const monthlyAmounts = {
-        'Jan': 0, 'Feb': 0, 'Mar': 0, 'Apr': 0, 'May': 0, 'Jun': 0,
+        'Jan': 0, 'Feb': 20, 'Mar': 30, 'Apr': 50, 'May': 60, 'Jun': 0,
         'Jul': 0, 'Aug': 0, 'Sep': 0, 'Oct': 0, 'Nov': 0, 'Dec': 0
       };
       
@@ -226,26 +283,10 @@ export class DashboardComponent implements OnInit {
       // this.updateChart();
     });
 
-    
-
-     var chartOrders = document.getElementById('chart-orders');
-
-     parseOptions(Chart, chartOptions());
+  
 
 
-     var ordersChart = new Chart(chartOrders, {
-       type: 'bar',
-       options: chartExample2.options,
-       data: chartExample2.data
-     });
-
-     var chartSales = document.getElementById('chart-sales');
-
-     this.salesChart = new Chart(chartSales, {
-       type: 'line',
-       options: chartExample1(this.datasets).options,
-       data: chartExample1(this.datasets).data
-     });
+     
   }
 
    public updateOptions() {
@@ -270,4 +311,64 @@ export class DashboardComponent implements OnInit {
       return userDate >= startDate && userDate <= endDate;
     }).length;
   }
+
+
+
+
+
+
+
+  getChartData(data: any[], numberOfMonths: number): { labels: string[], salesData: number[] } {
+    // Initialize arrays for labels and sales data
+    const labels: string[] = [];
+    const salesData: number[] = [];
+  
+    // Get the current date
+    const currentDate = new Date();
+  
+    // Iterate over the specified number of previous months
+    for (let i = numberOfMonths - 1; i >= 0; i--) {
+      // Get the date for the i-th previous month
+      const prevMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+  
+      // Get the month name and add it to the labels array
+      const monthName = this.getMonthName(prevMonthDate.getMonth());
+      labels.push(monthName);
+  
+      // Initialize the sales data for this month to 0
+      salesData.push(0);
+    }
+  
+    // Process data to increment sales data for existing records
+    data.forEach(item => {
+      const createdDate = new Date(item.createdAt);
+      const monthIndex = createdDate.getMonth();
+  
+      // Check if the record falls within the specified number of previous months
+      if (monthIndex >= currentDate.getMonth() - (numberOfMonths - 1) && monthIndex <= currentDate.getMonth()) {
+        // Calculate the index based on the month difference between the current month and the record's creation month
+        const index = numberOfMonths - 1 - (currentDate.getMonth() - monthIndex);
+        salesData[index]++;
+      }
+    });
+  
+    // console.log(labels, salesData, data, '------------------------------------------------->');
+  
+    return { labels, salesData };
+  }
+  
+  
+  getMonthName(month: number): string {
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return monthNames[month];
+  }
+
 }
+
+
+
+
+
+
+
+
